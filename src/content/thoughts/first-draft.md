@@ -6,4 +6,4 @@ author: Cesar
 draft: false
 ---
 
-Basic styling accomplished.
+Basic styling accomplished ... and added Tetris
