@@ -14,13 +14,25 @@ import MusicToggle from '../components/MusicToggle.astro';
       <div class="relative">
         <canvas 
           id="tetris-canvas" 
-          class="border-2 border-slate-700 rounded-lg bg-slate-900/80"
+          class="border-2 border-slate-700 rounded-lg bg-slate-900/80 max-w-full"
           width="300" 
           height="600"
         ></canvas>
         
         <!-- Music Toggle -->
         <MusicToggle class="absolute top-2.5 right-2.5" />
+        
+        <!-- Start Game Overlay -->
+        <div id="start-screen" class="absolute inset-0 bg-slate-900/90 rounded-lg flex flex-col items-center justify-center gap-4">
+          <p class="text-3xl font-bold bg-linear-to-r from-cyan-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Tetris</p>
+          <button 
+            id="start-btn"
+            class="px-8 py-3 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-lg transition-colors text-lg"
+          >
+            Play Game
+          </button>
+          <p class="text-xs text-slate-500 mt-2">Press any key to start</p>
+        </div>
         
         <!-- Game Over Overlay -->
         <div id="game-over" class="hidden absolute inset-0 bg-slate-900/90 rounded-lg flex flex-col items-center justify-center gap-4">
@@ -76,12 +88,17 @@ import MusicToggle from '../components/MusicToggle.astro';
     </div>
 
     <!-- Mobile Controls -->
-    <div class="md:hidden grid grid-cols-3 gap-2 w-full max-w-xs">
-      <button id="btn-left" class="p-4 bg-slate-800 rounded-lg active:bg-slate-700 text-2xl">←</button>
-      <button id="btn-rotate" class="p-4 bg-slate-800 rounded-lg active:bg-slate-700 text-2xl">↻</button>
-      <button id="btn-right" class="p-4 bg-slate-800 rounded-lg active:bg-slate-700 text-2xl">→</button>
-      <button id="btn-down" class="p-4 bg-slate-800 rounded-lg active:bg-slate-700 text-2xl col-span-2">↓</button>
-      <button id="btn-drop" class="p-4 bg-violet-600 rounded-lg active:bg-violet-500 text-sm font-medium">Drop</button>
+    <div class="md:hidden flex flex-col gap-3 w-full max-w-xs">
+      <div class="grid grid-cols-3 gap-2">
+        <button id="btn-left" class="p-4 bg-slate-800 rounded-lg active:bg-violet-600 text-2xl transition-colors touch-manipulation">←</button>
+        <button id="btn-rotate" class="p-4 bg-slate-800 rounded-lg active:bg-violet-600 text-2xl transition-colors touch-manipulation">↻</button>
+        <button id="btn-right" class="p-4 bg-slate-800 rounded-lg active:bg-violet-600 text-2xl transition-colors touch-manipulation">→</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button id="btn-down" class="p-4 bg-slate-800 rounded-lg active:bg-violet-600 text-2xl transition-colors touch-manipulation">↓</button>
+        <button id="btn-drop" class="p-4 bg-violet-600 rounded-lg active:bg-violet-500 font-medium transition-colors touch-manipulation">⬇ Drop</button>
+      </div>
+      <button id="btn-pause" class="p-3 bg-slate-700 rounded-lg active:bg-slate-600 text-sm font-medium transition-colors touch-manipulation">⏸ Pause</button>
     </div>
   </div>
 </BaseLayout>
@@ -482,6 +499,17 @@ import MusicToggle from '../components/MusicToggle.astro';
     document.getElementById('game-over')!.classList.remove('hidden');
   }
   
+  // Start game (from initial paused state)
+  let gameStarted = false;
+  
+  function startGame() {
+    if (gameStarted) return;
+    gameStarted = true;
+    paused = false;
+    document.getElementById('start-screen')!.classList.add('hidden');
+    startMusic();
+  }
+  
   // Reset game
   function resetGame() {
     initBoard();
@@ -489,14 +517,15 @@ import MusicToggle from '../components/MusicToggle.astro';
     lines = 0;
     level = 1;
     gameOver = false;
-    paused = false;
+    paused = true; // Start paused until player clicks play
+    gameStarted = false;
     dropInterval = 1000;
     lastDrop = 0;
     nextPiece = randomPiece();
     spawnPiece();
     updateUI();
     document.getElementById('game-over')!.classList.add('hidden');
-    startMusic();
+    document.getElementById('start-screen')!.classList.remove('hidden');
   }
   
   // Game loop
@@ -516,6 +545,12 @@ import MusicToggle from '../components/MusicToggle.astro';
   
   // Keyboard controls
   document.addEventListener('keydown', (e) => {
+    // Start game on first key press
+    if (!gameStarted && !gameOver) {
+      startGame();
+      return;
+    }
+    
     // Start music on first interaction
     if (!musicPlaying && !isMuted && !gameOver) {
       startMusic();
@@ -564,29 +599,106 @@ import MusicToggle from '../components/MusicToggle.astro';
   });
   
   // Mobile controls
-  document.getElementById('btn-left')?.addEventListener('click', () => {
+  function handleMobileAction(action: () => void) {
+    if (!gameStarted && !gameOver) {
+      startGame();
+      return;
+    }
     if (!musicPlaying && !isMuted) startMusic();
-    move(-1);
+    action();
+  }
+  
+  document.getElementById('btn-left')?.addEventListener('click', () => {
+    handleMobileAction(() => move(-1));
   });
   document.getElementById('btn-right')?.addEventListener('click', () => {
-    if (!musicPlaying && !isMuted) startMusic();
-    move(1);
+    handleMobileAction(() => move(1));
   });
   document.getElementById('btn-rotate')?.addEventListener('click', () => {
-    if (!musicPlaying && !isMuted) startMusic();
-    rotate();
+    handleMobileAction(() => rotate());
   });
   document.getElementById('btn-down')?.addEventListener('click', () => {
-    if (!musicPlaying && !isMuted) startMusic();
-    drop();
-    score += 1;
-    updateUI();
+    handleMobileAction(() => {
+      drop();
+      score += 1;
+      updateUI();
+    });
   });
   document.getElementById('btn-drop')?.addEventListener('click', () => {
-    if (!musicPlaying && !isMuted) startMusic();
-    hardDrop();
-    updateUI();
+    handleMobileAction(() => {
+      hardDrop();
+      updateUI();
+    });
   });
+  document.getElementById('btn-pause')?.addEventListener('click', () => {
+    if (!gameStarted) return;
+    paused = !paused;
+    const pauseBtn = document.getElementById('btn-pause')!;
+    pauseBtn.textContent = paused ? '▶ Resume' : '⏸ Pause';
+    if (paused) {
+      stopMusic();
+    } else {
+      startMusic();
+    }
+  });
+  
+  // Touch swipe gestures on canvas
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  
+  canvas.addEventListener('touchstart', (e) => {
+    if (!gameStarted && !gameOver) {
+      startGame();
+      return;
+    }
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+  
+  canvas.addEventListener('touchend', (e) => {
+    if (!gameStarted || gameOver || paused) return;
+    
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const touchDuration = Date.now() - touchStartTime;
+    
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const minSwipe = 30;
+    
+    // Tap to rotate (quick touch with minimal movement)
+    if (touchDuration < 200 && Math.abs(deltaX) < 20 && Math.abs(deltaY) < 20) {
+      rotate();
+      return;
+    }
+    
+    // Swipe detection
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (deltaX > minSwipe) {
+        move(1); // Right
+      } else if (deltaX < -minSwipe) {
+        move(-1); // Left
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > minSwipe * 2) {
+        // Long swipe down = hard drop
+        hardDrop();
+        updateUI();
+      } else if (deltaY > minSwipe) {
+        // Short swipe down = soft drop
+        drop();
+        score += 1;
+        updateUI();
+      }
+    }
+  }, { passive: true });
+  
+  // Start button
+  document.getElementById('start-btn')?.addEventListener('click', startGame);
   
   // Restart button
   document.getElementById('restart-btn')?.addEventListener('click', resetGame);
