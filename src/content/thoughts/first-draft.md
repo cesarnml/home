@@ -1,9 +1,9 @@
 ---
-title: Pa
+title: Pa (Let's go!)
 description: Initial post
 pubDate: 2025-12-21
 author: Cesar
 draft: false
 ---
 
-Hey
+Basic styling accomplished.

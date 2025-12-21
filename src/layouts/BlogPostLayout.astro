@@ -10,12 +10,12 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
-  <article class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-10">
-    <header class="mb-8 pb-8 border-b border-slate-200">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+  <article class="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700/50 p-8 md:p-10">
+    <header class="mb-8 pb-8 border-b border-slate-700/50">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
         {frontmatter.title}
       </h1>
-      <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500">
+      <div class="flex flex-wrap items-center gap-4 text-sm text-slate-400">
         <time datetime={frontmatter.pubDate.toISOString()} class="flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -38,20 +38,20 @@ const { frontmatter } = Astro.props;
       {frontmatter.tags && (
         <div class="flex flex-wrap gap-2 mt-4">
           {frontmatter.tags.map((tag: string) => (
-            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-sm font-medium">
+            <span class="px-3 py-1 bg-violet-500/20 text-violet-300 rounded-full text-sm font-medium border border-violet-500/30">
               {tag}
             </span>
           ))}
         </div>
       )}
     </header>
-    <div class="prose prose-slate prose-lg max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-pre:bg-slate-900 prose-pre:rounded-xl prose-code:text-pink-600 prose-code:before:content-none prose-code:after:content-none prose-blockquote:border-l-indigo-500 prose-blockquote:bg-slate-50 prose-blockquote:py-1 prose-blockquote:rounded-r-lg prose-img:rounded-xl">
+    <div class="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-headings:font-bold prose-p:text-slate-300 prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:border prose-pre:border-slate-700 prose-code:text-fuchsia-400 prose-code:before:content-none prose-code:after:content-none prose-blockquote:border-l-violet-500 prose-blockquote:bg-slate-800/50 prose-blockquote:py-1 prose-blockquote:rounded-r-lg prose-blockquote:text-slate-300 prose-img:rounded-xl prose-li:text-slate-300">
       <slot />
     </div>
   </article>
 
   <nav class="mt-8 flex justify-between">
-    <a href="/" class="group flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors">
+    <a href="/" class="group flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors">
       <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
