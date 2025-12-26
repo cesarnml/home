@@ -9,7 +9,7 @@ draft: false
 There is basically one week left in 2025. I want to do the following before year's end.
 
 - [ ] Go to the gym 6 times.
-  - [ ] Gym 1
+  - [x] ~~_Gym 1_~~ [2025-12-26]
   - [ ] Gym 2
   - [ ] Gym 3
   - [ ] Gym 4
@@ -17,7 +17,7 @@ There is basically one week left in 2025. I want to do the following before year
   - [ ] Gym 6
   - [ ] Rest
 - [ ] Complete Helsinki Python MOOC part 1
-  - [ ] Complete part 4
+  - [x] ~~_Complete part 4_~~ [2025-12-26]
   - [ ] Complete part 5
   - [ ] Complete part 6
   - [ ] Complete part 7
