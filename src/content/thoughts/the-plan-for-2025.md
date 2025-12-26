@@ -2,6 +2,7 @@
 title: The Plan for 2025 (what's left)
 description: Setup some goals for the remaining portion of 2025
 pubDate: 2025-12-23
+updatedDate: 2025-12-26
 author: Cesar
 draft: false
 ---
