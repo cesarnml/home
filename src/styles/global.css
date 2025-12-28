@@ -6,6 +6,32 @@
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Light mode theme colors */
+:root.light {
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-card: rgba(255, 255, 255, 0.8);
+  --color-bg-nav: rgba(248, 250, 252, 0.9);
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  --color-border: rgba(148, 163, 184, 0.3);
+  --color-border-hover: rgba(139, 92, 246, 0.5);
+}
+
+/* Dark mode theme colors (default) */
+:root.dark {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-card: rgba(30, 41, 59, 0.5);
+  --color-bg-nav: rgba(15, 23, 42, 0.8);
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #64748b;
+  --color-border: rgba(51, 65, 85, 0.5);
+  --color-border-hover: rgba(139, 92, 246, 0.5);
+}
+
 body {
   font-family: var(--font-sans);
 }
@@ -17,4 +43,97 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
+}
+
+/* Light mode overrides */
+:root.light body {
+  background: #eff1f5; /* soft gray background like dev.to */
+}
+
+/* Header/Nav - white */
+:root.light .bg-slate-900\/80 {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Content card/div - pure white */
+:root.light .bg-slate-800\/50 {
+  background-color: #ffffff;
+}
+
+/* Hero/section areas */
+:root.light .bg-slate-900\/50 {
+  background-color: #f8f9fa;
+}
+
+:root.light .text-white {
+  color: #0f172a;
+}
+
+:root.light .text-slate-100 {
+  color: #1e293b;
+}
+
+:root.light .text-slate-300 {
+  color: #10151b;
+}
+
+:root.light .text-slate-400 {
+  color: #07080b;
+}
+
+:root.light .text-slate-500 {
+  color: #0a0b0e;
+}
+
+:root.light .border-slate-700\/50 {
+  border-color: rgba(203, 213, 225, 0.5);
+}
+
+:root.light .prose-invert {
+  --tw-prose-body: #020617;
+  --tw-prose-headings: #020617;
+  --tw-prose-links: #0e7490;
+  --tw-prose-bold: #020617;
+  --tw-prose-counters: #1e293b;
+  --tw-prose-bullets: #1e293b;
+  --tw-prose-hr: #cbd5e1;
+  --tw-prose-quotes: #0f172a;
+  --tw-prose-quote-borders: #0e7490;
+  --tw-prose-captions: #334155;
+  --tw-prose-code: #a21caf;
+  --tw-prose-pre-code: #e2e8f0;
+  --tw-prose-pre-bg: #1e293b;
+  --tw-prose-th-borders: #94a3b8;
+  --tw-prose-td-borders: #cbd5e1;
+}
+
+/* Force dark text in light mode for prose content */
+:root.light .prose-headings\:text-white h1,
+:root.light .prose-headings\:text-white h2,
+:root.light .prose-headings\:text-white h3,
+:root.light .prose-headings\:text-white h4,
+:root.light .prose-headings\:text-white h5,
+:root.light .prose-headings\:text-white h6 {
+  color: #020617 !important;
+}
+
+:root.light .prose-p\:text-slate-300 p {
+  color: #020617 !important;
+}
+
+:root.light .prose-li\:text-slate-300 li {
+  color: #020617 !important;
+}
+
+:root.light .prose-strong\:text-white strong {
+  color: #020617 !important;
+}
+
+:root.light .prose-blockquote\:text-slate-300 blockquote {
+  color: #0f172a !important;
+}
+
+:root.light .prose-a\:text-cyan-400 a {
+  color: #0e7490 !important;
 }
