@@ -1,5 +1,5 @@
 ---
-title: AI Coding Agents in 2025: A Year of Remarkable Progress
+title: AI Coding Agents in 2025 - A Year of Remarkable Progress
 description: Exploring the significant advancements in AI coding agents throughout 2025
 pubDate: 2025-12-28
 author: Cesar
@@ -13,6 +13,7 @@ The year 2025 has been transformative for AI coding agents. What started as prom
 Early 2025 saw AI coding agents primarily functioning as sophisticated autocomplete tools. By mid-year, they had evolved into autonomous systems capable of understanding complex requirements, implementing entire features, and even managing project architectures.
 
 Key milestones include:
+
 - **Multi-file context understanding**: Agents can now work across entire codebases, maintaining consistency and understanding project-wide implications
 - **Real-time collaboration**: Live coding sessions where AI agents can suggest, implement, and refactor code alongside human developers
 - **Self-healing code**: Systems that automatically detect and fix bugs, often before they're even discovered by users
@@ -32,6 +33,7 @@ Each subtask is then executed with appropriate context, following established pa
 ## The Rise of Specialized Agents
 
 Rather than one-size-fits-all solutions, 2025 has seen the emergence of specialized AI coding agents:
+
 - **Frontend specialists**: Experts in React, Vue, and modern CSS frameworks
 - **Backend architects**: Masters of API design, database optimization, and system integration
 - **Security auditors**: Dedicated to identifying vulnerabilities and implementing best practices
@@ -40,6 +42,7 @@ Rather than one-size-fits-all solutions, 2025 has seen the emergence of speciali
 ## Integration with Development Workflows
 
 AI coding agents are no longer standalone tools but integrated components of modern development environments. They seamlessly work with:
+
 - Version control systems
 - CI/CD pipelines
 - Code review processes
@@ -49,6 +52,7 @@ AI coding agents are no longer standalone tools but integrated components of mod
 ## Challenges and Considerations
 
 Despite the progress, challenges remain:
+
 - **Context limitations**: While improved, agents still struggle with extremely large codebases
 - **Nuanced understanding**: Complex business logic and domain-specific knowledge can be challenging
 - **Over-reliance concerns**: The need to maintain human oversight and critical thinking
@@ -57,6 +61,7 @@ Despite the progress, challenges remain:
 ## Looking Ahead
 
 As we approach 2026, the trajectory suggests even more sophisticated capabilities:
+
 - Natural language to production-ready applications
 - Cross-platform development with automatic adaptation
 - Advanced debugging with root cause analysis
